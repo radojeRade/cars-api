@@ -1,12 +1,12 @@
 import React from "react";
 
 
-export default function AppCars(){
+export default function AppCars({ brand}){
     
     return ( 
     <div>
         
-        <p> <h2> App Cars</h2> </p>
+        <h2> Car Brand is: {brand}</h2> 
             
     </div>
     )
