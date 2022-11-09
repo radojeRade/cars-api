@@ -5,10 +5,11 @@ import CarsService from "../Service/CarsService";
 
 
 export default function AddCar(){
-//brand, model, years, maxSpeed, isAutomatic, engine, numberOfDoors
+
     const [obj, setObj] = useState({brand:"", model:"", maxSpeed: 0, year: 0, 
                                     isAutomatic: false,
                                     engine: "", numberOfDoors: 0});
+    
     const history = useHistory();
 
     const handleModel = (model1) => {
@@ -48,6 +49,9 @@ export default function AddCar(){
         isAutomatic: false,
         engine: "", numberOfDoors: 0});
     }
+    const preview = () => {
+        alert(JSON.stringify(obj));
+    }
 
     const addingCar = async (e) => {
         e.preventDefault();
@@ -80,7 +84,8 @@ export default function AddCar(){
                               isAutomatic = {obj.isAutomatic}
                               numberOfDoors = {obj.numberOfDoors}
                               addingCar = {addingCar}
-                              reset = {reset}/>
+                              reset = {reset}
+                              preview = {preview}/>
            
         </div>
     </div>
