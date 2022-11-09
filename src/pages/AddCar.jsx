@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import { useHistory } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
@@ -19,7 +19,7 @@ export default function AddCar(){
     
     //api calls
 
-    const getCar = async () => {
+    const getCar =  async () => {
         let id = Number(carId.carId);
         const res = await CarsService.get(id)
         .then((result) => {       //malo sam se poigrao sa then i catch uz async i await
@@ -29,15 +29,19 @@ export default function AddCar(){
         }).catch(e => console.log(e));
 
         setObj({...res});
+        
 
     };
 
-    useEffect(() => {
-        getCar();
+    useEffect(() => { 
+        if(Object.keys(carId).length > 0){ 
+            getCar();
+        }
+        
     }, []);
 
-    const edit = async () => {
-        //e.preventDefault();
+    const edit = async (e) => {
+        e.preventDefault(); //mora da bi radio history
         let id = Number(carId.carId);
         const response = await CarsService.edit(id, obj);
         console.log(response);

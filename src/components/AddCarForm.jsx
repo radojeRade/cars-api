@@ -82,11 +82,15 @@ export default function AppCarForm({handleBrand, handleModel, handleMaxSpeed, ed
             </select>
             
             <button onClick={() => addingCar()}>Submit</button>
-            <button onClick={() => edit()}>Edit</button>
+            <>
+            <button onClick={edit}>Edit</button>
+            </>
             
         </form>
         <button onClick = {() => reset()}>Reset</button>
+        
         <button onClick = {() => preview()}>Preview</button>
+        
         </div>
     )
 }

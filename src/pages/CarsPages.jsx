@@ -11,10 +11,19 @@ export default function CarsPages() {
     const cars = await CarsService.getAll('/cars');
     setCars(cars);
   };
+  const remove = async(id) => {
+    //e.preventDefault();
+    console.log(id);
+    const res = await CarsService.delete(id);
+    // if(res.status === 200){
+      
+    // }
+
+  }
 
   useEffect(() => {
     getAllCars();
-  }, []);
+  }, [cars]);
 
   return (
     <div>
@@ -24,7 +33,8 @@ export default function CarsPages() {
           
             <AppCars  key={car.id}
                       id = {car.id}
-                      brand={car.brand} />
+                      brand={car.brand}
+                      remove={remove} />
             
             )}
             </li>

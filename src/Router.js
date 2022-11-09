@@ -11,13 +11,12 @@ export default function Router(){
         <Route exact path="/cars">
             <CarsPages />
         </Route>
-        <Route  path="/add">
+        <Route exact path="/add">
             <AddCar />
         </Route>
-        <Route path="/edit/:carId">
+        <Route exact path="/edit/:carId">
             <AddCar />
-        </Route>
-        
+        </Route>  
     </Switch>
     )
 }
