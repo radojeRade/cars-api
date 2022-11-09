@@ -43,6 +43,12 @@ export default function AddCar(){
         setObj({ ...obj, numberOfDoors: Number(numOfDoors)}); 
     }
 
+    const reset = () => {
+        setObj({brand:"", model:"", maxSpeed: 0,  
+        isAutomatic: false,
+        engine: "", numberOfDoors: 0});
+    }
+
     const addingCar = async (e) => {
         e.preventDefault();
         const response = await CarsService.add( obj);
@@ -73,7 +79,8 @@ export default function AddCar(){
                               maxSpeed = {obj.maxSpeed}
                               isAutomatic = {obj.isAutomatic}
                               numberOfDoors = {obj.numberOfDoors}
-                              addingCar = {addingCar}/>
+                              addingCar = {addingCar}
+                              reset = {reset}/>
            
         </div>
     </div>
