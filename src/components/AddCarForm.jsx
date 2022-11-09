@@ -9,6 +9,8 @@ export default function AppCarForm({handleBrand, handleModel, handleMaxSpeed,
         <form onSubmit={addingCar}>
             <label>Brand:
                 <input type='text'
+                required
+                minLength="2"
                 value={brand}
                 onChange={(e) => {
                 handleBrand(e.target.value);
@@ -19,6 +21,8 @@ export default function AppCarForm({handleBrand, handleModel, handleMaxSpeed,
                 Model:
                 <input
                 type='text'
+                required
+                minLength="2"
                 value={model}
                 onChange={(e) => {
                 handleModel(e.target.value);
@@ -39,6 +43,7 @@ export default function AppCarForm({handleBrand, handleModel, handleMaxSpeed,
                 Number of doors:
                 <input
                 type='number'
+                required
                 value={numberOfDoors}
                 onChange={(e) => {
                 handleNumberOfDoors(e.target.value);
@@ -47,7 +52,7 @@ export default function AppCarForm({handleBrand, handleModel, handleMaxSpeed,
             </label>
             <label>
                 Is Automatic:
-                <input type="checkbox" value={isAutomatic} checked={isAutomatic} onChange = {()=>handleIsAutomatic(isAutomatic)}/>Automatic
+                <input type="checkbox" required value={isAutomatic} checked={isAutomatic} onChange = {()=>handleIsAutomatic(isAutomatic)}/>Automatic
             </label>
            
             <fieldset>
@@ -56,19 +61,19 @@ export default function AppCarForm({handleBrand, handleModel, handleMaxSpeed,
                 </legend>
                 <label>
                     Diesel
-                <input type="radio" value='diesel' checked={engine === 'diesel'} onChange={()=>handleEngine('diesel')} />
+                <input type="radio" required value='diesel' checked={engine === 'diesel'} onChange={()=>handleEngine('diesel')} />
                 </label>
                 <label>
                     Petrol
-                    <input type="radio" value='petrol' checked={engine === 'petrol'} onChange={()=>handleEngine('petrol')} />
+                    <input type="radio" required value='petrol' checked={engine === 'petrol'} onChange={()=>handleEngine('petrol')} />
                 </label>
                 <label>
                     Hybrid
-                    <input type="radio" value='hybrid' checked={engine === 'hybrid'} onChange={()=>handleEngine('hybrid')} />
+                    <input type="radio" required value='hybrid' checked={engine === 'hybrid'} onChange={()=>handleEngine('hybrid')} />
                 </label>
                 
             </fieldset>
-            <select  onChange={(e) => handleYear(e.target.value)}  >
+            <select required onChange={(e) => handleYear(e.target.value)}  >
                     <option >Please Choose...</option>  
                     {years().map((year, index) => (
                     
