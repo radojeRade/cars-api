@@ -1,21 +1,65 @@
 import React, {useState} from "react";
 import { useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
 import AddCarForm from "../components/AddCarForm";
 import CarsService from "../Service/CarsService";
 
 
 export default function AddCar(){
 
+    const history = useHistory();
+
+    const carId = useParams();
+
     const [obj, setObj] = useState({brand:"", model:"", maxSpeed: 0, year: 0, 
                                     isAutomatic: false,
                                     engine: "", numberOfDoors: 0});
     
-    const history = useHistory();
+    
+    //api calls
 
-    const handleModel = (model1) => {
-        
-            setObj({ ...obj, model: model1});
+    const getCar = async () => {
+        let id = Number(carId.carId);
+        const res = await CarsService.get(id)
+        .then((result) => {       //malo sam se poigrao sa then i catch uz async i await
+            if (result.status === 200){
+                return result.data;
+            }
+        }).catch(e => console.log(e));
+
+        setObj({...res});
+
+    };
+
+    useEffect(() => {
+        getCar();
+    }, []);
+
+    const edit = async () => {
+        //e.preventDefault();
+        let id = Number(carId.carId);
+        const response = await CarsService.edit(id, obj);
+        console.log(response);
+        if(response.status === 200){
+            history.push('/cars');
         }
+    }
+
+    const addingCar = async () => {
+        //e.preventDefault();
+        const response = await CarsService.add( obj);
+
+        console.log(response);
+        if(response.status === 200){
+            history.push('/cars');
+        }
+    }
+    
+    //form methods
+    const handleModel = (model1) => {
+            setObj({ ...obj, model: model1});
+    }
     
     const handleBrand = (brand1) =>{
         setObj({ ...obj, brand: brand1});
@@ -43,7 +87,7 @@ export default function AddCar(){
     const handleNumberOfDoors = (numOfDoors) => {
         setObj({ ...obj, numberOfDoors: Number(numOfDoors)}); 
     }
-
+    //buttons
     const reset = () => {
         setObj({brand:"", model:"", maxSpeed: 0,  
         isAutomatic: false,
@@ -53,20 +97,9 @@ export default function AddCar(){
         alert(JSON.stringify(obj));
     }
 
-    const addingCar = async (e) => {
-        e.preventDefault();
-        const response = await CarsService.add( obj);
-
-        console.log(response);
-        if(response.status === 200){
-            history.push('/cars');
-        }
-    }
-    
-
     return ( 
     <div>
-        <h1>Add Car</h1>
+        <h1>Add or Edit Car</h1>
         <div>
        
                 <AddCarForm handleBrand = {handleBrand}
@@ -84,6 +117,7 @@ export default function AddCar(){
                               isAutomatic = {obj.isAutomatic}
                               numberOfDoors = {obj.numberOfDoors}
                               addingCar = {addingCar}
+                              edit = {edit}
                               reset = {reset}
                               preview = {preview}/>
            

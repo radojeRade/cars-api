@@ -1,12 +1,12 @@
 import React from "react";
 
-export default function AppCarForm({handleBrand, handleModel, handleMaxSpeed,
+export default function AppCarForm({handleBrand, handleModel, handleMaxSpeed, edit,
         handleNumberOfDoors, handleIsAutomatic, handleYear, handleEngine, reset, preview,
          brand, model, engine, years, maxSpeed, isAutomatic, numberOfDoors, addingCar}){
     
     return ( 
         <div>
-        <form onSubmit={addingCar}>
+        <form >
             <label>Brand:
                 <input type='text'
                 required
@@ -81,7 +81,8 @@ export default function AppCarForm({handleBrand, handleModel, handleMaxSpeed,
                 ))}
             </select>
             
-            <button>Submit</button>
+            <button onClick={() => addingCar()}>Submit</button>
+            <button onClick={() => edit()}>Edit</button>
             
         </form>
         <button onClick = {() => reset()}>Reset</button>

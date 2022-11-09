@@ -14,6 +14,9 @@ export default function Router(){
         <Route  path="/add">
             <AddCar />
         </Route>
+        <Route path="/edit/:carId">
+            <AddCar />
+        </Route>
         
     </Switch>
     )

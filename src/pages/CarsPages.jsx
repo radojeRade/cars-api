@@ -9,7 +9,6 @@ export default function CarsPages() {
 
   const getAllCars = async () => {
     const cars = await CarsService.getAll('/cars');
-    console.log(cars);
     setCars(cars);
   };
 
@@ -24,6 +23,7 @@ export default function CarsPages() {
         {cars && cars.map((car) =>
           
             <AppCars  key={car.id}
+                      id = {car.id}
                       brand={car.brand} />
             
             )}
