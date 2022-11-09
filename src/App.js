@@ -7,6 +7,7 @@ function App() {
     <div className="App">
      <nav>  
           <Link to="/cars">Cars</Link><br></br>
+          <Link to="/add">Add car</Link><br></br>
       
      </nav>
      

@@ -5,6 +5,10 @@ class CarsService {
     const response = await axiosInstance.get("/cars");
     return response.data;
   }
+  async add(body){
+    const res = await axiosInstance.post("/cars", body);
+    return res;
+  }
 }
 
 export default new CarsService();
