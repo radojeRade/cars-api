@@ -23,7 +23,7 @@ export default function CarsPages() {
 
   useEffect(() => {
     getAllCars();
-  }, [cars]);
+  }, []);
 
   return (
     <div>

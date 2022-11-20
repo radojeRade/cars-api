@@ -1,96 +1,102 @@
 import React from "react";
 
-export default function AppCarForm({handleBrand, handleModel, handleMaxSpeed, edit,
-        handleNumberOfDoors, handleIsAutomatic, handleYear, handleEngine, reset, preview,
-         brand, model, engine, years, maxSpeed, isAutomatic, numberOfDoors, addingCar}){
-    
-    return ( 
-        <div>
-        <form >
-            <label>Brand:
-                <input type='text'
-                required
-                minLength="2"
-                value={brand}
-                onChange={(e) => {
-                handleBrand(e.target.value);
-                }}
-                />
-            </label>
-            <label>
-                Model:
-                <input
-                type='text'
-                required
-                minLength="2"
-                value={model}
-                onChange={(e) => {
-                handleModel(e.target.value);
-                }}
-                />  
-            </label>
-            <label>
-                Max speed:
-                <input
-                type='number'
-                value={maxSpeed}
-                onChange={(e) => {
-                handleMaxSpeed(e.target.value);
-                }}
-                />  
-            </label>
-            <label>
-                Number of doors:
-                <input
-                type='number'
-                required
-                value={numberOfDoors}
-                onChange={(e) => {
-                handleNumberOfDoors(e.target.value);
-                }}
-                />  
-            </label>
-            <label>
-                Is Automatic:
-                <input type="checkbox" required value={isAutomatic} checked={isAutomatic} onChange = {()=>handleIsAutomatic(isAutomatic)}/>Automatic
-            </label>
-           
-            <fieldset>
-                <legend>
-                    Choose Your Engine:
-                </legend>
-                <label>
-                    Diesel
-                <input type="radio" required value='diesel' checked={engine === 'diesel'} onChange={()=>handleEngine('diesel')} />
-                </label>
-                <label>
-                    Petrol
-                    <input type="radio" required value='petrol' checked={engine === 'petrol'} onChange={()=>handleEngine('petrol')} />
-                </label>
-                <label>
-                    Hybrid
-                    <input type="radio" required value='hybrid' checked={engine === 'hybrid'} onChange={()=>handleEngine('hybrid')} />
-                </label>
-                
-            </fieldset>
-            <select required onChange={(e) => handleYear(e.target.value)}  >
-                    <option >Please Choose...</option>  
-                    {years().map((year, index) => (
-                    
-                    <option key={index} value={year}>{year}</option>
+export const AddCarForm = ({ 
+    newCar, 
+    setNewCar, 
+    years, 
+    engines, 
+    onSubmit,
+    onReset,
+    onPreview 
+  }) => {
+    return (
+      <div>
+          <form onSubmit={onSubmit}>
+              <label>Brand:</label>
+              <input 
+             
+                type="text" 
+                value={newCar.brand}
+                onChange={({target}) => 
+                  setNewCar({...newCar, brand: target.value})}
+              />
+              <label>Model</label>
+              <input 
+             
+                type="text" 
+                value={newCar.model}
+                onChange={({target}) => 
+                  setNewCar({...newCar, model: target.value})}
+              />
+              <select
+                value={newCar.year}
+                onChange={({ target }) =>
+                  setNewCar({ ...newCar, year: Number(target.value) })
+                }
+              >
+                {years().map((year, index) => (
+                  <option key={index} value={Number(year)}>
+                    {year}
+                  </option>
                 ))}
-            </select>
-            
-            <button onClick={() => addingCar()}>Submit</button>
-            <>
-            <button onClick={edit}>Edit</button>
-            </>
-            
-        </form>
-        <button onClick = {() => reset()}>Reset</button>
-        
-        <button onClick = {() => preview()}>Preview</button>
-        
-        </div>
+              </select>
+              <label>Max speed</label>
+              <input
+                type='number'
+                value={newCar.maxSpeed}
+                onChange={({ target }) =>
+                  setNewCar({ ...newCar, maxSpeed: Number(target.value) })
+                }
+              />
+            <label>Number of doors</label>
+            <input
+              type='number'
+              value={newCar.numberOfDoors}
+              onChange={({ target }) =>
+                setNewCar({ ...newCar, numberOfDoors: Number(target.value) })
+              }
+              required
+            />
+            <span>
+              <label>Is it automatic?</label>
+              <input
+                type='checkbox' required value={newCar.isAutomatic} 
+                checked={newCar.isAutomatic}
+                onChange={({ target }) => {
+                  setNewCar({ ...newCar, isAutomatic: target.checked });
+              }}
+            />
+            </span>
+            <h4>Choose an engine type:</h4>
+            {engines.map((engine, index) => (
+              <span key={index}>
+                <input
+                  type='radio'
+                  name='engine'
+                  value={engine}
+                  onChange={() => setNewCar({ ...newCar, engine })}
+                  checked={engine === newCar.engine}
+                  required
+              />
+                {engine}
+              </span>
+              ))}
+          <button type="submit">
+            Add new car
+          </button>
+          <button 
+            type="submit" 
+            onClick={onReset}
+          >
+            Reset
+          </button>
+          <button 
+            type="submit" 
+            onClick={onPreview}
+          >
+            Preview
+          </button>
+          </form>
+      </div>
     )
-}
+  }
