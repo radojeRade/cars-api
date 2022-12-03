@@ -4,14 +4,22 @@ import './index.css';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 import reportWebVitals from './reportWebVitals';
-import Router from './Router';
+import DefaultLayout from "./layout";
+import { Provider } from 'react-redux';
+import { AuthProvider } from "./hooks/useAuth";
+import store from "./store/index";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
+  <Provider store={store}>
   <BrowserRouter>
-    <App />
-    <Router/>
+    <AuthProvider>
+      <DefaultLayout>
+        <App />
+      </DefaultLayout>
+    </AuthProvider>
   </BrowserRouter>
+  </Provider>
 );
 
 // If you want to start measuring performance in your app, pass a function
